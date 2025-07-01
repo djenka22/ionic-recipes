@@ -1,20 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import {IonApp, IonContent, IonHeader, IonTitle, IonToolbar} from '@ionic/angular/standalone';
+import {Component, OnInit} from '@angular/core';
+import {
+    IonAvatar,
+    IonContent,
+    IonHeader,
+    IonImg,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonTitle,
+    IonToolbar
+} from '@ionic/angular/standalone';
+import {Recipe} from "./recipe.model";
+import {RecipesService} from "./recipes.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
-  selector: 'app-recipes',
-  templateUrl: './recipes.page.html',
-  styleUrls: ['./recipes.page.scss'],
-  standalone: true,
-    imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonApp]
+    selector: 'app-recipes',
+    templateUrl: './recipes.page.html',
+    styleUrls: ['./recipes.page.scss'],
+    imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonAvatar, IonImg, IonLabel, RouterLink]
 })
 export class RecipesPage implements OnInit {
 
-  constructor() { }
+    recipes!: Recipe[];
 
-  ngOnInit() {
-  }
+    constructor(private recipeService: RecipesService) {
+    }
+
+    ngOnInit() {
+    }
+
+    ionViewWillEnter() {
+        this.recipes = this.recipeService.getAllRecipes();
+    }
 
 }
